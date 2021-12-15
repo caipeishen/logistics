@@ -36,70 +36,11 @@ public class UserController {
     @Resource
     private IUserService userinfoService;
 
-
-    @RequestMapping("/queryUserInfoAll")
-    public JsonObject queryUserInfoAll(@RequestParam(defaultValue = "1") Integer page,
-                                    @RequestParam(defaultValue = "15") Integer limit,
-                                    User user){
-        JsonObject object=new JsonObject();
-        PageInfo<User> pageInfo= userinfoService.findUserAll(page,limit, user);
-        object.setCode(0);
-        object.setMsg("ok");
-        object.setCount(pageInfo.getTotal());
-        object.setData(pageInfo.getList());
-        return object;
-    }
-
-    @ApiOperation(value = "删除")
-    @RequestMapping("/deleteByIds")
-    public R delete(String  ids){
-        List<String> list= Arrays.asList(ids.split(","));
-        //遍历遍历进行删除
-        for(String id:list){
-            User user = userinfoService.findById(Long.parseLong(id));
-            userinfoService.delete(Long.parseLong(id));
-        }
-        return R.ok();
-    }
-
-
     @ApiOperation(value = "新增")
     @RequestMapping("/add")
     public R add(@RequestBody User user){
         userinfoService.add(user);
         return R.ok();
-    }
-
-
-    @ApiOperation(value = "更新")
-    @RequestMapping("/update")
-    public R update(String oldPwd,String newPwd,Integer id){
-        //根据id获取当前的数据记录
-        User user=userinfoService.findById(new Long(id));
-        if(oldPwd.equals(user.getPassword())){//输入的老密码和原密码一致
-            user.setPassword(newPwd);
-            userinfoService.updateData(user);
-            return R.ok();
-        }else{
-            return R.fail("两次密码不一致");
-        }
-    }
-
-    @ApiOperation(value = "查询分页数据")
-    @ApiImplicitParams({
-        @ApiImplicitParam(name = "page", value = "页码"),
-        @ApiImplicitParam(name = "pageCount", value = "每页条数")
-    })
-    @GetMapping()
-    public IPage<User> findListByPage(@RequestParam Integer page,
-                                      @RequestParam Integer pageCount){
-        return userinfoService.findListByPage(page, pageCount);
-    }
-
-    @ApiOperation(value = "id查询")
-    @GetMapping("{id}")
-    public User findById(@PathVariable Long id){
-        return userinfoService.findById(id);
     }
 
 }

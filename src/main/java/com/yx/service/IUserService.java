@@ -16,49 +16,17 @@ import com.yx.model.User;
 public interface IUserService extends IService<User> {
 
     /**
-     * 查询分页数据
-     *
-     * @param page      页码
-     * @param pageCount 每页条数
-     * @return IPage<Userinfo>
-     */
-    IPage<User> findListByPage(Integer page, Integer pageCount);
-
-    PageInfo<User> findUserAll(int page, int pageSize, User user);
-
-    /**
-     * 添加
-     *
+     * 注册
      * @param user
-     * @return int
+     * @return
      */
     int add(User user);
 
     /**
-     * 删除
-     *
-     * @param id 主键
-     * @return int
-     */
-    int delete(Long id);
-
-    /**
-     * 修改
-     *
+     * 登录
      * @param user
-     * @return int
+     * @return
      */
-    int updateData(User user);
-
-    /**
-     * id查询数据
-     *
-     * @param id id
-     * @return Userinfo
-     */
-    User findById(Long id);
-
     User queryUserByStuNoAndPwd(User user);
 
-    void deleteUserByUsername(String username);
 }

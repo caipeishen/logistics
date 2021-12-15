@@ -27,42 +27,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Autowired
     private UserMapper userMapper;
 
-
-    @Override
-    public IPage<User> findListByPage(Integer page, Integer pageCount){
-        IPage<User> wherePage = new Page<>(page, pageCount);
-        User where = new User();
-
-        return   baseMapper.selectPage(wherePage, Wrappers.query(where));
-    }
-
-    @Override
-    public PageInfo<User> findUserAll(int page, int pageSize, User user) {
-        PageHelper.startPage(page,pageSize);
-        //查询的结果集
-        List<User> list= userMapper.queryUserAll(user);
-        PageInfo<User> pageInfo=new PageInfo<>(list);
-        return pageInfo;
-    }
-
     @Override
     public int add(User user){
         return baseMapper.insert(user);
-    }
-
-    @Override
-    public int delete(Long id){
-        return baseMapper.deleteById(id);
-    }
-
-    @Override
-    public int updateData(User user){
-        return baseMapper.updateById(user);
-    }
-
-    @Override
-    public User findById(Long id){
-        return  baseMapper.selectById(id);
     }
 
     @Override
@@ -70,8 +37,4 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         return userMapper.queryUserByStuNoAndPwd(user);
     }
 
-    @Override
-    public void deleteUserByUsername(String username) {
-        userMapper.deleteUserByUsername(username);
-    }
 }
