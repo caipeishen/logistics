@@ -18,9 +18,5 @@ import java.util.List;
 @Component("userDao")
 public interface UserMapper extends BaseMapper<User> {
 
-    List<User> queryUserAll(User user);
-
     User queryUserByStuNoAndPwd(User user);
-
-    void deleteUserByUsername(@Param("username") String username);
 }

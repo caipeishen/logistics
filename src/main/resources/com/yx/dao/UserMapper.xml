@@ -16,17 +16,8 @@
             id, username, password, type, remarks
         </sql>
 
-
-    <select id="queryUserAll" parameterType="com.yx.model.User" resultType="com.yx.model.User">
-           select * from tb_user
-    </select>
-
-    <select id="queryUserByStuNoAndPwd" resultType="com.yx.model.User"
-     parameterType="com.yx.model.User">
+    <select id="queryUserByStuNoAndPwd" resultType="com.yx.model.User" parameterType="com.yx.model.User">
         select * from tb_user u  where stu_no=#{stuNo} and u.password=#{password}
     </select>
 
-    <delete id="deleteUserByUsername" parameterType="String">
-        delete from tb_user where username=#{username}
-    </delete>
 </mapper>
