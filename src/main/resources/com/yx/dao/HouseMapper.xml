@@ -25,8 +25,8 @@
     <select id="findLogisticsAll" parameterType="string" resultType="com.yx.model.Logistics">
         select
             *,
-            cu.createByName,
-            uu.updateByName
+            cu.username createByName,
+            uu.username updateByName
         from logistics l
         left join tb_user cu on cu.id = l.create_by
         left join tb_user uu on uu.id = l.update_by
