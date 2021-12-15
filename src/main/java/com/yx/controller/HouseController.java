@@ -2,7 +2,7 @@ package com.yx.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.github.pagehelper.PageInfo;
-import com.yx.model.House;
+import com.yx.model.Logistics;
 import com.yx.service.IHouseService;
 import com.yx.util.JsonObject;
 import com.yx.util.R;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,30 +37,26 @@ public class HouseController {
     @Resource
     private IHouseService houseService;
 
-    @RequestMapping("/houseAll")
-    public JsonObject queryHouseAll(String numbers,
+    @RequestMapping("/logisticsAll")
+    public JsonObject queryLogisticsAll(String logNo,
+                                        String departTime,
                                   @RequestParam(defaultValue = "1")  Integer page,
                                     @RequestParam(defaultValue = "15")  Integer limit){
-        PageInfo<House> pageInfo=houseService.findHouseAll(page,limit,numbers);
+        PageInfo<Logistics> pageInfo=houseService.findLogisticsAll(page,limit, logNo, departTime);
         return  new JsonObject(0,"ok",pageInfo.getTotal(),pageInfo.getList());
     }
 
     @RequestMapping("/queryAll")
-    public  List<House> queryAll(){
-        PageInfo<House> pageInfo=houseService.findHouseAll(1,100,null);
+    public  List<Logistics> queryAll(){
+        PageInfo<Logistics> pageInfo=houseService.findLogisticsAll(1,100,null, null);
         return pageInfo.getList();
     }
 
 
     @ApiOperation(value = "新增")
     @RequestMapping("/add")
-    public R add(@RequestBody House house){
-        if(house.getIntoDate()!=null){
-            house.setStatus(1);
-        }else{
-            house.setStatus(0);
-        }
-        int num= houseService.add(house);
+    public R add(@RequestBody Logistics logistics){
+        int num= houseService.add(logistics);
         if(num>0){
             return R.ok();
         }else{
@@ -81,13 +78,8 @@ public class HouseController {
 
     @ApiOperation(value = "更新")
     @RequestMapping("/update")
-    public R update(@RequestBody House house){
-        if(house.getIntoDate()!=null){
-            house.setStatus(1);
-        }else{
-            house.setStatus(0);
-        }
-        int num= houseService.updateData(house);
+    public R update(@RequestBody Logistics logistics){
+        int num= houseService.updateData(logistics);
         if(num>0){
             return R.ok();
         }else{
@@ -101,14 +93,14 @@ public class HouseController {
         @ApiImplicitParam(name = "pageCount", value = "每页条数")
     })
     @GetMapping()
-    public IPage<House> findListByPage(@RequestParam Integer page,
-                                       @RequestParam Integer pageCount){
+    public IPage<Logistics> findListByPage(@RequestParam Integer page,
+                                           @RequestParam Integer pageCount){
         return houseService.findListByPage(page, pageCount);
     }
 
     @ApiOperation(value = "id查询")
     @GetMapping("{id}")
-    public House findById(@PathVariable Long id){
+    public Logistics findById(@PathVariable Long id){
         return houseService.findById(id);
     }
 

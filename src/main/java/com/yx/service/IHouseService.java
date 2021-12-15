@@ -3,8 +3,9 @@ package com.yx.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
-import com.yx.model.House;
+import com.yx.model.Logistics;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,14 +16,14 @@ import java.util.List;
  * @author yanghuihui
  * @since 2020-12-08
  */
-public interface IHouseService extends IService<House> {
+public interface IHouseService extends IService<Logistics> {
 
     /**
      * 分页查询房屋信息
      */
-    PageInfo<House> findHouseAll(int page,int pagesize,String numbers);
+    PageInfo<Logistics> findLogisticsAll(int page, int pageSize, String logNo, String departTime);
 
-    List<House> findList();
+    List<Logistics> findList();
 
     /**
      * 查询分页数据
@@ -31,15 +32,15 @@ public interface IHouseService extends IService<House> {
      * @param pageCount 每页条数
      * @return IPage<House>
      */
-    IPage<House> findListByPage(Integer page, Integer pageCount);
+    IPage<Logistics> findListByPage(Integer page, Integer pageCount);
 
     /**
      * 添加
      *
-     * @param house 
+     * @param logistics
      * @return int
      */
-    int add(House house);
+    int add(Logistics logistics);
 
     /**
      * 删除
@@ -52,10 +53,10 @@ public interface IHouseService extends IService<House> {
     /**
      * 修改
      *
-     * @param house 
+     * @param logistics
      * @return int
      */
-    int updateData(House house);
+    int updateData(Logistics logistics);
 
     /**
      * id查询数据
@@ -63,7 +64,5 @@ public interface IHouseService extends IService<House> {
      * @param id id
      * @return House
      */
-    House findById(Long id);
-
-    House queryHouseById(Integer houId);
+    Logistics findById(Long id);
 }

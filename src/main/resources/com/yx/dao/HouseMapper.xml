@@ -2,33 +2,44 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yx.dao.HouseMapper">
 
-        <!-- 通用查询映射结果 -->
-        <resultMap id="BaseResultMap" type="com.yx.model.House">
-                    <id column="id" property="id"/>
-                    <result column="storey" property="storey"/>
-                    <result column="numbers" property="numbers"/>
-                    <result column="status" property="status"/>
-                    <result column="intoDate" property="intoDate"/>
-                    <result column="building_id" property="buildingId"/>
-                    <result column="remarks" property="remarks"/>
-                    <result column="area" property="area"/>
-        </resultMap>
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.yx.model.Logistics">
+                <id column="id" property="id"/>
+                <result column="log_no" property="logNo"/>
+                <result column="car_type" property="carType"/>
+                <result column="driver_name" property="driverName"/>
+                <result column="start_place" property="startPlace"/>
+                <result column="end_place" property="endPlace"/>
+                <result column="depart_time" property="departTime"/>
+                <result column="create_by" property="createBy"/>
+                <result column="create_time" property="createTime"/>
+                <result column="update_by" property="updateBy"/>
+                <result column="update_time" property="updateTime"/>
+    </resultMap>
 
-        <!-- 通用查询结果列 -->
-        <sql id="Base_Column_List">
-            id, storey, numbers, status, intoDate, building_id, remarks, area
-        </sql>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, log_no, car_type, driver_name, start_place, end_place, depart_time, create_by, create_time, update_by, update_time
+    </sql>
 
-    <select id="findHouseAll" parameterType="string" resultType="com.yx.model.House">
-        select * from house
+    <select id="findLogisticsAll" parameterType="string" resultType="com.yx.model.Logistics">
+        select
+            *,
+            cu.createByName,
+            uu.updateByName
+        from logistics l
+        left join tb_user cu on cu.id = l.create_by
+        left join tb_user uu on uu.id = l.update_by
         <where>
-            <if test="numbers!=null and numbers!=''">
-                 and numbers like '%${numbers}%'
+            <if test="logNo!=null and logNo!=''">
+                 and log_no like '%${logNo}%'
+            </if>
+            <if test="departTime!=null and departTime!=''">
+                <![CDATA[
+                    and DATE_FORMAT(depart_time, '%Y-%m-%d') = #{departTime}
+                ]]>
             </if>
         </where>
     </select>
 
-    <select id="queryHouseById" resultType="com.yx.model.House" parameterType="Integer">
-        select * from house where id = #{houId}
-    </select>
 </mapper>

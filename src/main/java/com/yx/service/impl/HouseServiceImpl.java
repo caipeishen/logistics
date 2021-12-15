@@ -7,11 +7,12 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.yx.dao.HouseMapper;
-import com.yx.model.House;
+import com.yx.model.Logistics;
 import com.yx.service.IHouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,33 +24,33 @@ import java.util.List;
  * @since 2020-12-08
  */
 @Service
-public class HouseServiceImpl extends ServiceImpl<HouseMapper, House> implements IHouseService {
+public class HouseServiceImpl extends ServiceImpl<HouseMapper, Logistics> implements IHouseService {
     @Autowired
     private HouseMapper houseDao;
     @Override
-    public PageInfo<House> findHouseAll(int page, int pagesize, String numbers) {
+    public PageInfo<Logistics> findLogisticsAll(int page, int pagesize, String logNo, String departTime) {
         PageHelper.startPage(page,pagesize);
-        List<House> list=houseDao.findHouseAll(numbers);
-        PageInfo<House> pageInfo=new PageInfo<>(list);
+        List<Logistics> list=houseDao.findLogisticsAll(logNo, departTime);
+        PageInfo<Logistics> pageInfo=new PageInfo<>(list);
         return pageInfo;
     }
 
     @Override
-    public List<House> findList() {
+    public List<Logistics> findList() {
         return baseMapper.selectList(null);
     }
 
     @Override
-    public IPage<House> findListByPage(Integer page, Integer pageCount){
-        IPage<House> wherePage = new Page<>(page, pageCount);
-        House where = new House();
+    public IPage<Logistics> findListByPage(Integer page, Integer pageCount){
+        IPage<Logistics> wherePage = new Page<>(page, pageCount);
+        Logistics where = new Logistics();
 
         return   baseMapper.selectPage(wherePage, Wrappers.query(where));
     }
 
     @Override
-    public int add(House house){
-        return baseMapper.insert(house);
+    public int add(Logistics logistics){
+        return baseMapper.insert(logistics);
     }
 
     @Override
@@ -58,17 +59,13 @@ public class HouseServiceImpl extends ServiceImpl<HouseMapper, House> implements
     }
 
     @Override
-    public int updateData(House house){
-        return baseMapper.updateById(house);
+    public int updateData(Logistics logistics){
+        return baseMapper.updateById(logistics);
     }
 
     @Override
-    public House findById(Long id){
+    public Logistics findById(Long id){
         return  baseMapper.selectById(id);
     }
 
-    @Override
-    public House queryHouseById(Integer houId) {
-        return houseDao.queryHouseById(houId);
-    }
 }

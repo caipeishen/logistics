@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -22,32 +23,44 @@ import java.util.Date;
  * @since 2020-12-08
  */
 @Data
-@TableName("house")
+@TableName("logistics")
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @ApiModel(value="House对象", description="")
-public class House implements Serializable {
+public class Logistics implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private Integer storey;
+    private String logNo;
 
-    private String numbers;
+    // 车辆类型（1.面包车 2.大货车）
+    private String carType;
 
-    private Integer status;
+    private String driverName;
+
+    private String startPlace;
+
+    private String endPlace;
+
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
+    private Date departTime;
+
+    private String createBy;
+
+    private String createByName;
 
     @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
-    private Date intoDate;
+    private Date createTime;
 
-    private Integer buildingId;
+    private String updateBy;
 
-    private String remarks;
+    private String updateByName;
 
-    private Double area;
-
-
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
+    private Date updateTime;
 
 }

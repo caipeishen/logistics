@@ -2,9 +2,13 @@
     <div class="layuimini-main">
 
         <div class="demoTable">
-            房间号：
-            <div class="layui-inline">
-                <input class="layui-input" name="numbers"  id="numbers" autocomplete="off">
+            物流编号：
+            <div class="layui-inline" style="margin-right: 10px">
+                <input class="layui-input" name="logNo"  id="logNo" autocomplete="off">
+            </div>
+            发车时间：
+            <div class="layui-inline" style="margin-right: 10px">
+                <input type="text" name="departTime" id="departTime" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
             </div>
             <button class="layui-btn" data-type="reload">搜索</button>
         </div>
@@ -27,15 +31,22 @@
 </div>
 
 <script>
-    layui.use(['form', 'table','miniPage','element'], function () {
+    layui.use(['form', 'table','miniPage','element','laydate'], function () {
         var $ = layui.jquery,
             form = layui.form,
             table = layui.table,
+            laydate=layui.laydate,
             miniPage = layui.miniPage;
+
+        // 日期
+        laydate.render({
+            elem: '#departTime',
+            trigger:'click'
+        });
 
         table.render({
             elem: '#currentTableId',
-            url: 'logistics/houseAll',
+            url: 'logistics/logisticsAll',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
@@ -44,18 +55,26 @@
             }],
             cols: [[
                 {type: "checkbox", width: 50},
-                //{field: 'id', width: 80, title: 'ID', sort: true},
-                {field: 'numbers', width: 80, title: '房号'},
-                {field: 'area', width: 80, title: '面积'},
-                {field: 'intoDate', width: 150, title: '入住时间'},
-                {field: 'status', width: 80, title: '状态',
-                 templet:function(res){
-                    if(res.status=='1'){
-                        return '<span class="layui-badge layui-bg-green">入住</span>';
-                    }else{
-                        return '<span class="layui-badge layui-bg-orange">未入住</span>';
-                    }
-                 }},
+                {field: 'id', width: 60, title: 'ID', sort: true},
+                {field: 'logNo', width: 100, title: '物流编号'},
+                {field: 'carType', width: 100, title: '车类型',
+                    templet:function(res){
+                        if (res.carType=='1') {
+                            return '<span class="layui-badge layui-bg-green">面包车</span>';
+                        } else if (res.carType=='2') {
+                            return '<span class="layui-badge layui-bg-green">大货车</span>';
+                        } else {
+                            return '<span class="layui-badge layui-bg-red">未知类型</span>';
+                        }
+                    }},
+                {field: 'driverName', width: 100, title: '司机姓名'},
+                {field: 'startPlace', width: 100, title: '出发地'},
+                {field: 'endPlace', width: 100, title: '目的地'},
+                {field: 'departTime', width: 120, title: '发车时间'},
+                {field: 'createByName', width: 100, title: '创建人'},
+                {field: 'createTime', width: 120, title: '创建时间'},
+                {field: 'updateByName', width: 100, title: '更新人'},
+                {field: 'updateTime', width: 120, title: '更新时间'},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
             limits: [10, 15, 20, 25, 50, 100],
@@ -68,7 +87,8 @@
 
         var $ = layui.$, active = {
             reload: function(){
-                var numbers = $('#numbers');
+                let logNo = $('#logNo');
+                let departTime = $('#departTime');
 
                 //执行重载
                 table.reload('testReload', {
@@ -76,7 +96,8 @@
                         curr: 1 //重新从第 1 页开始
                     }
                     ,where: {
-                        numbers:numbers.val()
+                        logNo: logNo.val(),
+                        departTime: departTime.val()
                     }
                 }, 'data');
             }
@@ -114,7 +135,7 @@
             if (obj.event === 'add') {   // 监听添加操作
 
                 var content = miniPage.getHrefContent('page/base/logistics/addLogistics.html');
-                var index=openPage(content,"添加房屋",'70%','70%');
+                var index=openPage(content, "物流信息录入", '70%', '70%');
                 $(window).on("resize", function () {
                     layer.full(index);
                 });
@@ -155,7 +176,7 @@
         function setFormValues(data){
             form.val("updateSubmit",{
                 "id":data.id,
-                "numbers":data.numbers,
+                "logNo":data.logNo,
                 "status":data.status,
                 "intoDate":data.intoDate,
                 "buildingId":data.buildingId,
