@@ -35,7 +35,7 @@
 
         table.render({
             elem: '#currentTableId',
-            url: 'house/houseAll',
+            url: 'logistics/houseAll',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
@@ -113,7 +113,7 @@
         table.on('toolbar(currentTableFilter)', function (obj) {
             if (obj.event === 'add') {   // 监听添加操作
 
-                var content = miniPage.getHrefContent('page/base/house/addHouse.html');
+                var content = miniPage.getHrefContent('page/base/logistics/addLogistics.html');
                 var index=openPage(content,"添加房屋",'70%','70%');
                 $(window).on("resize", function () {
                     layer.full(index);
@@ -134,7 +134,7 @@
                     var ids =getCheckId(data);
                     layer.confirm('你确定要删除记录吗？',function (index) {
                          //执行删除功能
-                        deleteByIds($,"house/deleteByIds",ids,index);
+                        deleteByIds($,"logistics/deleteByIds",ids,index);
                     })
 
                 }
@@ -168,7 +168,7 @@
         table.on('tool(currentTableFilter)', function (obj) {
             var data = obj.data;
             if (obj.event === 'edit') {
-                var content = miniPage.getHrefContent('page/base/house/editHouse.html');
+                var content = miniPage.getHrefContent('page/base/logistics/editLogistics.html');
                 var index=openPage(content,"编辑房屋",'70%','70%');
 
                 //渲染数据
@@ -179,7 +179,7 @@
                 return false;
             } else if (obj.event === 'delete') {
                 layer.confirm('确定是否删除', function (index) {
-                    deleteByIds($,"house/deleteByIds",data.id,index)
+                    deleteByIds($,"logistics/deleteByIds",data.id,index)
                 });
             }
         });

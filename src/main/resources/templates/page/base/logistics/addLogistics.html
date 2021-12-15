@@ -1,8 +1,6 @@
 <div class="layuimini-main">
 
-    <div class="layui-form layuimini-form" lay-filter="updateSubmit">
-        <input type="hidden" name="id">
-        <input type="hidden" name="typeIds" id="typeIds">
+    <div class="layui-form layuimini-form">
         <div class="layui-form-item">
             <label class="layui-form-label required">房屋编号</label>
             <div class="layui-input-block">
@@ -41,7 +39,7 @@
 
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="updateSubmit">确认保存</button>
+                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认保存</button>
             </div>
         </div>
     </div>
@@ -70,12 +68,6 @@
                     option.setAttribute("value",list[c].id);
                     option.innerText=list[c].numbers;
                     select.appendChild(option);
-                    var selectTypeId=$("#typeIds").val();
-                    //如果隐藏中的楼宇的id和遍历的list中的id一致 选中
-                    if(selectTypeId==list[c].id){
-                        option.setAttribute("selected","selected");
-                        layui.form.render('select');
-                    }
                 }
             }
             form.render('select');
@@ -87,10 +79,10 @@
         var parentIndex = layer.index;
 
         //监听提交
-        form.on('submit(updateSubmit)', function (data) {
+        form.on('submit(saveBtn)', function (data) {
             //获取表单中的数据信息
             var datas=data.field;
-            addOrUpdateSubmit($,"house/update",datas);
+            addOrUpdateSubmit($,"logistics/add",datas);
             return false;
         });
 

@@ -26,12 +26,12 @@ import java.util.List;
  * @author yanghuihui
  * @since 2020-12-08
  */
-@Api(tags = {""})
+@Api(tags = {"物流管理API"})
 @RestController
-@RequestMapping("/house")
+@RequestMapping("/logistics")
 public class HouseController {
 
-    private Logger log = LoggerFactory.getLogger(getClass());
+    private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Resource
     private IHouseService houseService;

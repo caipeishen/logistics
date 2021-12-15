@@ -4,6 +4,7 @@ import com.yx.model.User;
 import com.yx.service.IUserService;
 import com.yx.util.ChineseCharToEn;
 import com.yx.util.R;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ import static com.yx.util.Constants.OK_CODE;
 /**
  * 注册、登录、退出登录
  */
+@Api(tags = {"注册、登录、退出登录"})
 @Controller
 public class LoginController {
     @Autowired

@@ -37,7 +37,7 @@
           "child": [
             {
               "title": "物流管理",
-              "href": "page/base/house/HouseIndex.html",
+              "href": "page/base/logistics/indexLogistics.html",
               "icon": "fa fa-adn",
               "target": "_self"
             }
