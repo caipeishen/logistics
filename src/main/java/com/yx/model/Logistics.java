@@ -1,9 +1,6 @@
 package com.yx.model;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
@@ -29,15 +26,17 @@ import java.util.Date;
 @ApiModel(value="House对象", description="")
 public class Logistics implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     private String logNo;
 
-    // 车辆类型（1.面包车 2.大货车）
-    private String carType;
+    private String typeId;
+
+    @TableField(exist = false)
+    private String typeName;
 
     private String driverName;
 
@@ -45,22 +44,20 @@ public class Logistics implements Serializable {
 
     private String endPlace;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
     private Date departTime;
 
     private String createBy;
 
+    @TableField(exist = false)
     private String createByName;
 
-    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
     private Date createTime;
 
     private String updateBy;
 
+    @TableField(exist = false)
     private String updateByName;
 
-    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
     private Date updateTime;
 
 }

@@ -57,24 +57,16 @@
                 {type: "checkbox", width: 50},
                 {field: 'id', width: 60, title: 'ID', sort: true},
                 {field: 'logNo', width: 100, title: '物流编号'},
-                {field: 'carType', width: 100, title: '车类型',
+                {field: 'typeName', width: 100, title: '车类型',
                     templet:function(res){
-                        if (res.carType=='1') {
-                            return '<span class="layui-badge layui-bg-green">面包车</span>';
-                        } else if (res.carType=='2') {
-                            return '<span class="layui-badge layui-bg-green">大货车</span>';
-                        } else {
-                            return '<span class="layui-badge layui-bg-red">未知类型</span>';
-                        }
+                        return `<span class="layui-badge layui-bg-green">${res.typeName}</span>`;
                     }},
                 {field: 'driverName', width: 100, title: '司机姓名'},
                 {field: 'startPlace', width: 100, title: '出发地'},
                 {field: 'endPlace', width: 100, title: '目的地'},
-                {field: 'departTime', width: 120, title: '发车时间'},
+                {field: 'departTime', width: 180, title: '发车时间'},
                 {field: 'createByName', width: 100, title: '创建人'},
-                {field: 'createTime', width: 120, title: '创建时间'},
-                {field: 'updateByName', width: 100, title: '更新人'},
-                {field: 'updateTime', width: 120, title: '更新时间'},
+                {field: 'createTime', width: 180, title: '创建时间'},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
             limits: [10, 15, 20, 25, 50, 100],
@@ -174,15 +166,9 @@
          * 设计渲染form中的信息值
          */
         function setFormValues(data){
-            form.val("updateSubmit",{
-                "id":data.id,
-                "logNo":data.logNo,
-                "status":data.status,
-                "intoDate":data.intoDate,
-                "buildingId":data.buildingId,
-                "area":data.area,
-                "typeIds":data.buildingId,
-                "remarks":data.remarks
+            form.val("updateSubmit", {
+                "id": data.id,
+                "logNo": data.logNo
             });
         };
 
@@ -190,7 +176,7 @@
             var data = obj.data;
             if (obj.event === 'edit') {
                 var content = miniPage.getHrefContent('page/base/logistics/editLogistics.html');
-                var index=openPage(content,"编辑房屋",'70%','70%');
+                var index=openPage(content,"编辑物流信息",'70%','70%');
 
                 //渲染数据
                 setFormValues(data);

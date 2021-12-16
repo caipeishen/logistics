@@ -1,5 +1,6 @@
 package com.yx.controller;
 
+import com.yx.controller.context.UserContext;
 import com.yx.model.User;
 import com.yx.service.IUserService;
 import com.yx.util.ChineseCharToEn;
@@ -70,10 +71,11 @@ public class LoginController {
         ChineseCharToEn cte = new ChineseCharToEn();
         userinfo.setNickname(cte.getAllFirstLetter(userinfo.getUsername()) + substring);
         int add = this.userinfoService.add(userinfo);
-        if (add != 1) {
+        if (add > 0) {
+            return R.ok();
+        } else {
             return R.fail("注册失败");
         }
-        return R.ok();
     }
 
     /**
@@ -83,6 +85,7 @@ public class LoginController {
     public void loginOut(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session=request.getSession();
         session.invalidate();
+        UserContext.setUser(null);
         response.sendRedirect(request.getContextPath()+"/login.html");
     }
 }

@@ -6,8 +6,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.yx.controller.context.UserContext;
 import com.yx.dao.HouseMapper;
 import com.yx.model.Logistics;
+import com.yx.model.User;
 import com.yx.service.IHouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,6 +52,11 @@ public class HouseServiceImpl extends ServiceImpl<HouseMapper, Logistics> implem
 
     @Override
     public int add(Logistics logistics){
+        User user = UserContext.getUser();
+        logistics.setCreateBy(user.getId()+"");
+        logistics.setUpdateBy(user.getId()+"");
+        logistics.setCreateTime(new Date());
+        logistics.setUpdateTime(new Date());
         return baseMapper.insert(logistics);
     }
 
@@ -60,6 +67,9 @@ public class HouseServiceImpl extends ServiceImpl<HouseMapper, Logistics> implem
 
     @Override
     public int updateData(Logistics logistics){
+        User user = UserContext.getUser();
+        logistics.setUpdateBy(user.getId()+"");
+        logistics.setUpdateTime(new Date());
         return baseMapper.updateById(logistics);
     }
 

@@ -6,7 +6,7 @@
     <resultMap id="BaseResultMap" type="com.yx.model.Logistics">
                 <id column="id" property="id"/>
                 <result column="log_no" property="logNo"/>
-                <result column="car_type" property="carType"/>
+                <result column="type_id" property="typeId"/>
                 <result column="driver_name" property="driverName"/>
                 <result column="start_place" property="startPlace"/>
                 <result column="end_place" property="endPlace"/>
@@ -19,15 +19,17 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, log_no, car_type, driver_name, start_place, end_place, depart_time, create_by, create_time, update_by, update_time
+        id, log_no, type_id, driver_name, start_place, end_place, depart_time, create_by, create_time, update_by, update_time
     </sql>
 
     <select id="findLogisticsAll" parameterType="string" resultType="com.yx.model.Logistics">
         select
             *,
+            t.type_name TypeName,
             cu.username createByName,
             uu.username updateByName
         from logistics l
+        left join car_type t on t.type_id = l.type_id
         left join tb_user cu on cu.id = l.create_by
         left join tb_user uu on uu.id = l.update_by
         <where>
@@ -40,6 +42,7 @@
                 ]]>
             </if>
         </where>
+        order by l.id desc
     </select>
 
 </mapper>

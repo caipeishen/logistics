@@ -1,5 +1,6 @@
 package com.yx.interceptor;
 
+import com.yx.controller.context.UserContext;
 import com.yx.model.User;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,6 +23,7 @@ public class LoginInterceptor  implements HandlerInterceptor {
 
         User user = (User) request.getSession().getAttribute("user");
         if(user !=null){//放行
+            UserContext.setUser(user);
             return true;
         }
         //如果没有登录就跳转到登录页面

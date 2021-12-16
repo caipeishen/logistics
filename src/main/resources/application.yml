@@ -15,7 +15,6 @@ spring:
     password: a9530.A.
   jackson: # 时间格式转化
     date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT+8
 
 # mybatis-plus
 mybatis-plus:

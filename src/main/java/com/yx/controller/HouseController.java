@@ -1,8 +1,13 @@
 package com.yx.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.github.pagehelper.PageInfo;
+import com.yx.controller.context.UserContext;
+import com.yx.model.CarType;
 import com.yx.model.Logistics;
+import com.yx.model.User;
+import com.yx.service.ICarTypeService;
 import com.yx.service.IHouseService;
 import com.yx.util.JsonObject;
 import com.yx.util.R;
@@ -12,9 +17,12 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -37,6 +45,9 @@ public class HouseController {
     @Resource
     private IHouseService houseService;
 
+    @Resource
+    private ICarTypeService carTypeService;
+
     @RequestMapping("/logisticsAll")
     public JsonObject queryLogisticsAll(String logNo,
                                         String departTime,
@@ -55,9 +66,16 @@ public class HouseController {
 
     @ApiOperation(value = "新增")
     @RequestMapping("/add")
-    public R add(@RequestBody Logistics logistics){
+    public R add(@RequestBody Logistics logistics, HttpServletRequest request){
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("log_no", logistics.getLogNo());
+        List list = houseService.list(queryWrapper);
+        if (!CollectionUtils.isEmpty(list)) {
+            return R.fail("该物流编号已存在!");
+        }
+
         int num= houseService.add(logistics);
-        if(num>0){
+        if(num > 0){
             return R.ok();
         }else{
             return R.fail("添加失败");
@@ -78,9 +96,9 @@ public class HouseController {
 
     @ApiOperation(value = "更新")
     @RequestMapping("/update")
-    public R update(@RequestBody Logistics logistics){
+    public R update(@RequestBody Logistics logistics, HttpServletRequest request){
         int num= houseService.updateData(logistics);
-        if(num>0){
+        if(num >0 ){
             return R.ok();
         }else{
             return R.fail("修改失败");
@@ -102,6 +120,13 @@ public class HouseController {
     @GetMapping("{id}")
     public Logistics findById(@PathVariable Long id){
         return houseService.findById(id);
+    }
+
+
+    @ApiOperation(value = "查询所有类型")
+    @GetMapping("/carTypeAll")
+    public List<CarType> findAllType(){
+        return carTypeService.findAll();
     }
 
 }
