@@ -16,7 +16,7 @@ import java.util.List;
  * @author yanghuihui
  * @since 2020-12-08
  */
-public interface IHouseService extends IService<Logistics> {
+public interface ILogisticsService extends IService<Logistics> {
 
     /**
      * 分页查询房屋信息

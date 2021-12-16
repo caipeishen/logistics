@@ -42,4 +42,7 @@ public class User implements Serializable {
     // 密码
     private String password;
 
+    // 性别
+    private String gender;
+
 }

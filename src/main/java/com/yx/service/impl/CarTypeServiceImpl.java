@@ -1,17 +1,9 @@
 package com.yx.service.impl;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.yx.dao.CarTypeMapper;
-import com.yx.dao.HouseMapper;
 import com.yx.model.CarType;
-import com.yx.model.Logistics;
 import com.yx.service.ICarTypeService;
-import com.yx.service.IHouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

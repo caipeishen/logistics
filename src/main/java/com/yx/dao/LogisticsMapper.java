@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 @Component("houseDao")
-public interface HouseMapper extends BaseMapper<Logistics> {
+public interface LogisticsMapper extends BaseMapper<Logistics> {
 
     /**
      * 查询

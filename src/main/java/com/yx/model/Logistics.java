@@ -31,19 +31,26 @@ public class Logistics implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    // 物流编号
     private String logNo;
 
+    // 车辆类型ID
     private String typeId;
 
+    // 车辆类型名称
     @TableField(exist = false)
     private String typeName;
 
+    // 司机姓名
     private String driverName;
 
+    // 出发地
     private String startPlace;
 
+    // 目的地
     private String endPlace;
 
+    // 发车时间
     private Date departTime;
 
     private String createBy;

@@ -89,6 +89,14 @@
                     <input type="password" name="password" id="password" lay-verify="required"  placeholder="请输入密码" maxlength="20">
                     <span class="bind-password icon icon-4"></span>
                 </div>
+                <div class="layui-form-item">
+                    <span class="icon icon-4"></span>
+                    <select name="gender"  id="type" lay-verify="required">
+                        <option value="">请选择性别</option>
+                        <option value="男">男</option>
+                        <option value="女">女</option>
+                    </select>
+                </div>
             </div>
 
            <div class="layui-form-item" style="text-align:center; width:100%;height:100%;margin:0px;">
@@ -148,6 +156,10 @@
                 layer.msg('密码不能为空');
                 return false;
             }
+            if (data.gender == '') {
+                layer.msg('性别不能为空');
+                return false;
+            }
 
             $.ajax({
                 url:'registerIn',
@@ -159,6 +171,7 @@
                         $("#stuNo").val("");
                         $("#username").val("");
                         $("#password").val("");
+                        $("#gender").val("");
                         layer.msg("注册成功");
                     } else {
                         // layer.msg("学号或者密码不正确，重新登录");

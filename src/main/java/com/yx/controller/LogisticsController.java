@@ -3,12 +3,10 @@ package com.yx.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.github.pagehelper.PageInfo;
-import com.yx.controller.context.UserContext;
 import com.yx.model.CarType;
 import com.yx.model.Logistics;
-import com.yx.model.User;
 import com.yx.service.ICarTypeService;
-import com.yx.service.IHouseService;
+import com.yx.service.ILogisticsService;
 import com.yx.util.JsonObject;
 import com.yx.util.R;
 import io.swagger.annotations.Api;
@@ -22,9 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,12 +34,12 @@ import java.util.List;
 @Api(tags = {"物流管理API"})
 @RestController
 @RequestMapping("/logistics")
-public class HouseController {
+public class LogisticsController {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Resource
-    private IHouseService houseService;
+    private ILogisticsService houseService;
 
     @Resource
     private ICarTypeService carTypeService;

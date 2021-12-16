@@ -7,10 +7,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.yx.controller.context.UserContext;
-import com.yx.dao.HouseMapper;
+import com.yx.dao.LogisticsMapper;
 import com.yx.model.Logistics;
 import com.yx.model.User;
-import com.yx.service.IHouseService;
+import com.yx.service.ILogisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +26,9 @@ import java.util.List;
  * @since 2020-12-08
  */
 @Service
-public class HouseServiceImpl extends ServiceImpl<HouseMapper, Logistics> implements IHouseService {
+public class LogisticsServiceImpl extends ServiceImpl<LogisticsMapper, Logistics> implements ILogisticsService {
     @Autowired
-    private HouseMapper houseDao;
+    private LogisticsMapper houseDao;
     @Override
     public PageInfo<Logistics> findLogisticsAll(int page, int pagesize, String logNo, String departTime) {
         PageHelper.startPage(page,pagesize);
